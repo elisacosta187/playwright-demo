@@ -1,0 +1,20 @@
+{
+  "name": "playwright-demo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.50.1",
+    "@types/node": "^22.13.1"
+  },
+  "scripts": {
+    "test": "playwright test",
+    "debug": "playwright test --debug",
+    "headed": "playwright test --headed",
+    "update-snapshots": "playwright test -g @snapshot -u",
+    "test-snapshots": "playwright test -g @snapshot",
+    "trace": "playwright show-trace",
+    "report": "playwright show-report",
+    "ui": "playwright test --ui"
+  }
+}

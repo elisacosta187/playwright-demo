@@ -1,0 +1,11 @@
+services:
+    playwright-demo:
+        image: mcr.microsoft.com/playwright:v1.50.1
+        working_dir: /app
+        user: pwuser
+        tty: true
+        ipc: host
+        environment:
+            CI: 'true'
+        volumes:
+            - ./:/app
