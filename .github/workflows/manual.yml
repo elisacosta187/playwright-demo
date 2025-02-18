@@ -48,12 +48,12 @@ jobs:
       - name: Download all Playwright reports
         uses: actions/download-artifact@v4
         with:
-          path: public
+          path: artifacts
 
       - name: Move reports to public directory
         run: |
           mkdir -p public
-          mv public/playwright-report-* public/
+          mv artifacts/playwright-report-* public/
           cp assets/index.html public/
 
       - name: Upload public directory as artifact
