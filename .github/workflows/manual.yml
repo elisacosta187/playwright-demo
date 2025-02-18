@@ -6,6 +6,11 @@ on:
       - main
   pull_request:
 
+permissions:
+  id-token: write
+  pages: write
+  contents: read
+
 jobs:
   test:
     name: Run Playwright Tests
