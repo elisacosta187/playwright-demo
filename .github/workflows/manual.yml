@@ -55,7 +55,7 @@ jobs:
         with:
           path: artifacts
 
-      - name: Debug: Check artifacts folder before moving
+      - name: Debug - Check artifacts folder before moving
         run: ls -R artifacts || echo "No artifacts found!"
 
       - name: Move reports to public directory
@@ -68,7 +68,7 @@ jobs:
             echo "<html><body><h1>Playwright Report</h1></body></html>" > public/index.html
           fi
 
-      - name: Debug: List files in public directory
+      - name: Debug - List files in public directory
         run: ls -R public || echo "Public directory is empty!"
 
       - name: Upload public directory as artifact
@@ -77,7 +77,7 @@ jobs:
           name: public
           path: public/
 
-      - name: Debug: List all uploaded artifacts
+      - name: Debug - List all uploaded artifacts
         run: ls -R /home/runner/work/_temp || echo "No uploaded artifacts found!"
 
       - name: Deploy to GitHub Pages
