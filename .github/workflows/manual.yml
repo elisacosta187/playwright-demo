@@ -42,45 +42,45 @@ jobs:
           path: playwright-report-${{ matrix.project }}/
           retention-days: 7
 
-    pages:
-      name: Deploy Playwright Reports
-      needs: test
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout repository
-          uses: actions/checkout@v4
+  pages:
+    name: Deploy Playwright Reports
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-        - name: Download all Playwright reports
-          uses: actions/download-artifact@v4
-          with:
-            path: artifacts
+      - name: Download all Playwright reports
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
 
-        - name: Debug: Check artifacts folder before moving
-          run: ls -R artifacts || echo "No artifacts found!"
+      - name: Debug: Check artifacts folder before moving
+        run: ls -R artifacts || echo "No artifacts found!"
 
-        - name: Move reports to public directory
-          run: |
-            mkdir -p public
-            cp -r artifacts/playwright-report-* public/
-            if [ -f assets/index.html ]; then
-              cp assets/index.html public/
-            else
-              echo "<html><body><h1>Playwright Report</h1></body></html>" > public/index.html
-            fi
+      - name: Move reports to public directory
+        run: |
+          mkdir -p public
+          cp -r artifacts/playwright-report-* public/ || echo "No reports found!"
+          if [ -f assets/index.html ]; then
+            cp assets/index.html public/
+          else
+            echo "<html><body><h1>Playwright Report</h1></body></html>" > public/index.html
+          fi
 
-        - name: Debug: List files in public directory
-          run: ls -R public || echo "Public directory is empty!"
+      - name: Debug: List files in public directory
+        run: ls -R public || echo "Public directory is empty!"
 
-        - name: Upload public directory as artifact
-          uses: actions/upload-artifact@v4
-          with:
-            name: public
-            path: public/
+      - name: Upload public directory as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: public
+          path: public/
 
-        - name: Debug: List all uploaded artifacts
-          run: ls -R /home/runner/work/_temp || echo "No uploaded artifacts found!"
+      - name: Debug: List all uploaded artifacts
+        run: ls -R /home/runner/work/_temp || echo "No uploaded artifacts found!"
 
-        - name: Deploy to GitHub Pages
-          uses: actions/deploy-pages@v2
-          with:
-            artifact_name: public
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v2
+        with:
+          artifact_name: public
