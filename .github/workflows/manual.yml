@@ -43,38 +43,38 @@ jobs:
           retention-days: 7
 
   pages:
-  name: Deploy Playwright Reports
-  needs: test
-  runs-on: ubuntu-latest
-  steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+    name: Deploy Playwright Reports
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Download all Playwright reports
-      uses: actions/download-artifact@v4
-      with:
-        path: artifacts
+      - name: Download all Playwright reports
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
 
-    - name: Move reports to public directory
-      run: |
-        mkdir -p public
-        mv artifacts/playwright-report-* public/
-        if [ -f assets/index.html ]; then
+      - name: Move reports to public directory
+        run: |
+         mkdir -p public
+          mv artifacts/playwright-report-* public/
+          if [ -f assets/index.html ]; then
           cp assets/index.html public/
-        else
-          echo "<html><body><h1>Playwright Report</h1></body></html>" > public/index.html
-        fi
+          else
+            echo "<html><body><h1>Playwright Report</h1></body></html>" > public/index.html
+          fi
 
-    - name: List files in public directory (Debugging)
-      run: ls -R public
+      - name: List files in public directory (Debugging)
+        run: ls -R public
 
-    - name: Upload public directory as artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: public
-        path: public/
+      - name: Upload public directory as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: public
+          path: public/
 
-    - name: Deploy to GitHub Pages
-      uses: actions/deploy-pages@v2
-      with:
-        artifact_name: public
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v2
+        with:
+          artifact_name: public
