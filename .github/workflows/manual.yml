@@ -1,0 +1,68 @@
+name: Playwright Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  test:
+    name: Run Playwright Tests
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.50.1
+
+    strategy:
+      matrix:
+        project: [webkit, chromium]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Run Playwright Tests - ${{ matrix.project }}
+        run: yarn playwright test --project=${{ matrix.project }} $PW_ARGS
+
+      - name: Rename Playwright report folder
+        run: mv playwright-report playwright-report-${{ matrix.project }}
+
+      - name: Upload Playwright report as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-${{ matrix.project }}
+          path: playwright-report-${{ matrix.project }}/
+          retention-days: 7
+
+  pages:
+    name: Deploy Playwright Reports
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download all Playwright reports
+        uses: actions/download-artifact@v4
+        with:
+          path: public
+
+      - name: Move reports to public directory
+        run: |
+          mkdir -p public
+          mv public/playwright-report-* public/
+          cp assets/index.html public/
+
+      - name: Upload public directory as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: public
+          path: public/
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v2
+        with:
+          artifact_name: public
