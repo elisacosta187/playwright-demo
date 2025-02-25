@@ -5,7 +5,8 @@
   "license": "MIT",
   "devDependencies": {
     "@playwright/test": "^1.50.1",
-    "@types/node": "^22.13.1"
+    "@types/node": "^22.13.1",
+    "prettier": "3.5.2"
   },
   "scripts": {
     "test": "playwright test",
@@ -15,6 +16,8 @@
     "test-snapshots": "playwright test -g @snapshot",
     "trace": "playwright show-trace",
     "report": "playwright show-report",
-    "ui": "playwright test --ui"
+    "ui": "playwright test --ui",
+    "prettier": "prettier --config .prettierrc.js --check '**/*.{ts,js}'",
+    "prettier:fix": "npm run prettier -- -w"
   }
 }

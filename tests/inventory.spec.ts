@@ -15,7 +15,6 @@ test.describe("Inventory Tests", () => {
     await expect(login.page).toHaveURL(/inventory/);
   });
 
-
   test("Adding an item to the cart updates the cart icon", async () => {
     await inventory.addToCartButton.first().click();
     await expect(inventory.cartBadge).toHaveText("1");
