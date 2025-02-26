@@ -46,6 +46,7 @@ yarn playwright test /path/to/test
 | `docker-test`             | Run all tests but those including @snapshot in the test name locally.              |
 | `docker-test-snapshots`   | Run only tests containing @snapshot in the test name                               |
 | `docker-update-snapshots` | Run only tests containing @snapshot in the test name, updating existing snapshots. |
+| `generate-doc`            | Generate test documentation based on test steps.                                   |
 | `clean`                   | Delete test reports folders.                                                       |
 
 ## Useful Commands

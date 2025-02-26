@@ -20,6 +20,7 @@
     "report": "playwright show-report",
     "ui": "playwright test --ui",
     "prettier": "prettier --config .prettierrc.js --check '**/*.{ts,js}'",
-    "prettier:fix": "npm run prettier -- -w"
+    "prettier:fix": "npm run prettier -- -w",
+    "generate-doc": "npx ts-node generate-test-doc.ts ./tests"
   }
 }

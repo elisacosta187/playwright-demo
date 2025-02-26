@@ -15,5 +15,8 @@ docker-test-snapshots: docker-install
 docker-update-snapshots: docker-install
 	${COMMAND}  yarn update-snapshots
 
+generate-doc:
+	${COMMAND} yarn generate-doc
+
 clean:
 	rm -rf test-results playwright-report

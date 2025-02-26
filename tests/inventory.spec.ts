@@ -43,7 +43,7 @@ test.describe("Inventory Tests", () => {
       await inventory.removeFromCartButton.first().click();
     })
     await test.step('Check cart icon is updated accordingly', async () => {
-      await expect(inventory.cartBadge).not.toHaveText("1");
+      await expect(inventory.cartBadge).not.toBeVisible();
     })
   });
 });
